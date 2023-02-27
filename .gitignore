@@ -44,3 +44,15 @@ app.*.map.json
 /android/app/release
 /pubspec.lock
 /.metadata
+/.fvm/
+
+#generated files
+*.g.dart
+*.freezed.dart
+*.gr.dart
+
+#injectable generated files
+*.config.dart
+
+#flutter_gen
+*.gen.dart
