@@ -66,6 +66,32 @@ class AppButton extends StatelessWidget {
         ),
         super(key: key);
 
+  AppButton.gradient({
+    Key? key,
+    final double? height,
+    final double? width,
+    final double? elevation,
+    required final Widget child,
+    final Color? background,
+    final Color? borderColor,
+    final VoidCallback? onPressed,
+    final bool? isProcessing,
+    final EdgeInsets? padding,
+    final BoxConstraints? constraints,
+    final Gradient? gradient,
+  })  : _child = _GradientButton(
+          height: height,
+          width: width,
+          padding: padding,
+          elevation: elevation,
+          onPressed: onPressed,
+          isProcessing: isProcessing ?? false,
+          constraints: constraints,
+          gradient: gradient,
+          child: child,
+        ),
+        super(key: key);
+
   AppButton.borderIcon({
     Key? key,
     required final Widget icon,
@@ -199,7 +225,7 @@ class _ElevatedButton extends StatelessWidget {
     this.constraints,
     this.isProcessing = false,
     required this.child,
-  })  : height = height ?? 42.0,
+  })  : height = height ?? 48.0,
         width = width ?? double.infinity;
 
   @override
@@ -211,7 +237,7 @@ class _ElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(elevation),
-          minimumSize: MaterialStateProperty.all<Size>(Size(width, 56.0)),
+          minimumSize: MaterialStateProperty.all<Size>(Size(width, 48.0)),
           backgroundColor: background == null ? null : MaterialStateProperty.all<Color>(background!),
         ),
         onPressed: () {
@@ -246,7 +272,7 @@ class _OutlineButton extends StatelessWidget {
     this.isProcessing = false,
     this.padding,
     required this.child,
-  })  : height = height ?? 42.0,
+  })  : height = height ?? 48.0,
         width = width ?? double.infinity;
 
   @override
@@ -265,6 +291,55 @@ class _OutlineButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: isProcessing ? _CircularProgressIndicator(height: height * 0.7, color: context.onPrimary) : child,
+      ),
+    );
+  }
+}
+
+class _GradientButton extends StatelessWidget {
+  final double height, width;
+  final double? elevation;
+  final VoidCallback? onPressed;
+  final bool isProcessing;
+  final Widget child;
+  final BoxConstraints? constraints;
+  final EdgeInsets? padding;
+  final Gradient? gradient;
+
+  const _GradientButton({
+    final double? height,
+    final double? width,
+    this.elevation,
+    this.onPressed,
+    this.constraints,
+    this.isProcessing = false,
+    this.padding,
+    this.gradient,
+    required this.child,
+  })  : height = height ?? 48.0,
+        width = width ?? double.infinity;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0))),
+        elevation: MaterialStateProperty.all(elevation),
+        minimumSize: MaterialStateProperty.all<Size>(Size(width, 48.0)),
+        foregroundColor: MaterialStateProperty.all<Color>(context.onPrimary),
+      ),
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: onPressed == null ? null : (gradient ?? context.horizontal),
+            borderRadius: const BorderRadius.all(Radius.circular(80.0)),
+          ),
+          child: Center(child: isProcessing ? _CircularProgressIndicator(height: height * 0.7, color: context.onPrimary) : child),
+        ),
       ),
     );
   }
@@ -293,7 +368,7 @@ class _ShrinkTab extends StatelessWidget {
     required this.label,
   })  : isActive = isActive ?? false,
         margin = margin ?? const EdgeInsets.symmetric(horizontal: 8),
-        height = height ?? 42.0;
+        height = height ?? 48.0;
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +424,7 @@ class _ShrinkElevatedButton extends StatelessWidget {
     this.borderRadius,
     required this.isProcessing,
     required this.child,
-  }) : height = height ?? 42.0;
+  }) : height = height ?? 48.0;
 
   @override
   Widget build(BuildContext context) {
@@ -388,7 +463,7 @@ class _ShrinkOutlineButton extends StatelessWidget {
     this.isProcessing = false,
     this.borderColor,
     required this.child,
-  }) : height = height ?? 42.0;
+  }) : height = height ?? 48.0;
 
   @override
   Widget build(BuildContext context) {
@@ -428,7 +503,7 @@ class _AppElevatedButton extends StatelessWidget {
     this.background,
     this.isProcessing = false,
     required this.child,
-  })  : height = height ?? 42.0,
+  })  : height = height ?? 48.0,
         count = count ?? -1;
 
   @override

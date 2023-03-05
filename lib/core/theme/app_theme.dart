@@ -14,5 +14,9 @@ abstract class AppTheme {
 
   Color get onSecondary;
 
+  Color get errorColor;
+
   AppThemeExtension get extension;
+
+  InputDecorationTheme get inputDecorationTheme;
 }

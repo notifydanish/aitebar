@@ -12,7 +12,9 @@ class ThemeLight extends AppTheme {
           onPrimary: onPrimary,
           secondary: secondary,
           onSecondary: onSecondary,
+          error: errorColor,
         ),
+        inputDecorationTheme: inputDecorationTheme,
       );
 
   @override
@@ -29,6 +31,9 @@ class ThemeLight extends AppTheme {
 
   @override
   Color get onSecondary => const Color(0xFFFFFFFF);
+
+  @override
+  Color get errorColor => Colors.red;
 
   @override
   AppThemeExtension get extension => AppThemeExtension(
@@ -68,4 +73,29 @@ class ThemeLight extends AppTheme {
 
     return MaterialColor(color.value, swatch);
   }
+
+  @override
+  InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: primary),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: primary),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: primary),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: errorColor),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: errorColor),
+        ),
+      );
 }
