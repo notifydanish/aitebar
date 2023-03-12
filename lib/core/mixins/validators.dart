@@ -1,4 +1,4 @@
-mixin Validators {
+class Validators {
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required';

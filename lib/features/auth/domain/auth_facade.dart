@@ -1,4 +1,4 @@
-import 'package:etibaar/features/auth/domain/models/user/user.dart';
+import 'package:aitebar/features/auth/domain/models/user/user.dart';
 
 abstract class IAuthFacade {
   Future<dynamic> login({required String email, required String password});

@@ -1,4 +1,4 @@
-import 'package:etibaar/core/extensions/app_theme_extension.dart';
+import 'package:aitebar/core/extensions/app_theme_extension.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppTheme {

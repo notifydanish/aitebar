@@ -1,6 +1,6 @@
-import 'package:etibaar/core/sl/service_locator.dart';
-import 'package:etibaar/features/auth/domain/auth_facade.dart';
-import 'package:etibaar/features/auth/domain/models/user/user.dart';
+import 'package:aitebar/core/sl/service_locator.dart';
+import 'package:aitebar/features/auth/domain/auth_facade.dart';
+import 'package:aitebar/features/auth/domain/models/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

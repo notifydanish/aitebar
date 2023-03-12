@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:etibaar/core/constants/firebase_key.dart';
-import 'package:etibaar/features/auth/domain/auth_facade.dart';
-import 'package:etibaar/features/auth/domain/models/user/user.dart';
+import 'package:aitebar/core/constants/firebase_key.dart';
+import 'package:aitebar/features/auth/domain/auth_facade.dart';
+import 'package:aitebar/features/auth/domain/models/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';

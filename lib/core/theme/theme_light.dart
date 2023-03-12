@@ -1,5 +1,6 @@
-import 'package:etibaar/core/extensions/app_theme_extension.dart';
-import 'package:etibaar/core/theme/app_theme.dart';
+import 'package:aitebar/core/extensions/app_theme_extension.dart';
+import 'package:aitebar/core/theme/app_theme.dart';
+import 'package:aitebar/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
 class ThemeLight extends AppTheme {
@@ -7,6 +8,8 @@ class ThemeLight extends AppTheme {
         useMaterial3: true,
         primarySwatch: primarySwatch,
         extensions: [extension],
+        appBarTheme: const AppBarTheme(centerTitle: true),
+        fontFamily: FontFamily.poppins,
         colorScheme: ColorScheme.light(
           primary: primary,
           onPrimary: onPrimary,

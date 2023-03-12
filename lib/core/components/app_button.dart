@@ -1,5 +1,7 @@
-import 'package:etibaar/core/extensions/build_context_extension.dart';
+import 'package:aitebar/core/extensions/build_context_extension.dart';
 import 'package:flutter/material.dart';
+
+const double _defaultButtonHeight = 36.0;
 
 class AppButton extends StatelessWidget {
   final Widget _child;
@@ -28,6 +30,7 @@ class AppButton extends StatelessWidget {
     final VoidCallback? onPressed,
     final bool? isProcessing,
     final BoxConstraints? constraints,
+    final BorderRadius? borderRadius,
   })  : _child = _ElevatedButton(
           height: height,
           width: width,
@@ -36,6 +39,34 @@ class AppButton extends StatelessWidget {
           onPressed: onPressed,
           isProcessing: isProcessing ?? false,
           constraints: constraints,
+          borderRadius: borderRadius,
+          child: child,
+        ),
+        super(key: key);
+
+  AppButton.primary({
+    Key? key,
+    final double? height,
+    final double? width,
+    final double? elevation,
+    required final Widget child,
+    final Color? background,
+    final Color? foregroundColor,
+    final Color? fore,
+    final VoidCallback? onPressed,
+    final bool? isProcessing,
+    final BoxConstraints? constraints,
+    final BorderRadius? borderRadius,
+  })  : _child = _PrimaryButton(
+          height: height,
+          width: width,
+          elevation: elevation,
+          background: background,
+          foregroundColor: foregroundColor,
+          onPressed: onPressed,
+          isProcessing: isProcessing ?? false,
+          constraints: constraints,
+          borderRadius: borderRadius,
           child: child,
         ),
         super(key: key);
@@ -215,6 +246,7 @@ class _ElevatedButton extends StatelessWidget {
   final Color? background;
   final Widget child;
   final BoxConstraints? constraints;
+  final BorderRadius? borderRadius;
 
   const _ElevatedButton({
     final double? height,
@@ -224,8 +256,9 @@ class _ElevatedButton extends StatelessWidget {
     this.background,
     this.constraints,
     this.isProcessing = false,
+    this.borderRadius,
     required this.child,
-  })  : height = height ?? 48.0,
+  })  : height = height ?? _defaultButtonHeight,
         width = width ?? double.infinity;
 
   @override
@@ -236,9 +269,68 @@ class _ElevatedButton extends StatelessWidget {
       constraints: constraints,
       child: ElevatedButton(
         style: ButtonStyle(
+          shape: borderRadius == null
+              ? null
+              : MaterialStateProperty.all(
+                  RoundedRectangleBorder(borderRadius: borderRadius!),
+                ),
           elevation: MaterialStateProperty.all(elevation),
-          minimumSize: MaterialStateProperty.all<Size>(Size(width, 48.0)),
+          minimumSize: MaterialStateProperty.all<Size>(Size(width, _defaultButtonHeight)),
           backgroundColor: background == null ? null : MaterialStateProperty.all<Color>(background!),
+        ),
+        onPressed: () {
+          if (isProcessing) return;
+          if (onPressed != null) onPressed!();
+        },
+        child: isProcessing ? _CircularProgressIndicator(height: height * 0.7, color: Theme.of(context).colorScheme.onPrimary) : child,
+      ),
+    );
+  }
+}
+
+class _PrimaryButton extends StatelessWidget {
+  final double height, width;
+  final double? elevation;
+  final VoidCallback? onPressed;
+  final bool isProcessing;
+  final Color? background;
+  final Color? foregroundColor;
+  final Widget child;
+  final BoxConstraints? constraints;
+  final BorderRadius? borderRadius;
+
+  const _PrimaryButton({
+    final double? height,
+    final double? width,
+    this.elevation,
+    this.onPressed,
+    this.background,
+    this.constraints,
+    this.isProcessing = false,
+    this.borderRadius,
+    this.foregroundColor,
+    required this.child,
+  })  : height = height ?? _defaultButtonHeight,
+        width = width ?? double.infinity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      constraints: constraints,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          shape: borderRadius == null
+              ? null
+              : MaterialStateProperty.all(
+                  RoundedRectangleBorder(borderRadius: borderRadius!),
+                ),
+          elevation: MaterialStateProperty.all(elevation),
+          minimumSize: MaterialStateProperty.all<Size>(Size(width, _defaultButtonHeight)),
+          backgroundColor: background == null ? MaterialStateProperty.all<Color>(context.primary) : MaterialStateProperty.all<Color>(background!),
+          foregroundColor:
+              foregroundColor == null ? MaterialStateProperty.all<Color>(context.onPrimary) : MaterialStateProperty.all<Color>(foregroundColor!),
         ),
         onPressed: () {
           if (isProcessing) return;
@@ -272,7 +364,7 @@ class _OutlineButton extends StatelessWidget {
     this.isProcessing = false,
     this.padding,
     required this.child,
-  })  : height = height ?? 48.0,
+  })  : height = height ?? _defaultButtonHeight,
         width = width ?? double.infinity;
 
   @override
@@ -316,7 +408,7 @@ class _GradientButton extends StatelessWidget {
     this.padding,
     this.gradient,
     required this.child,
-  })  : height = height ?? 48.0,
+  })  : height = height ?? _defaultButtonHeight,
         width = width ?? double.infinity;
 
   @override
@@ -327,7 +419,7 @@ class _GradientButton extends StatelessWidget {
         padding: MaterialStateProperty.all(EdgeInsets.zero),
         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0))),
         elevation: MaterialStateProperty.all(elevation),
-        minimumSize: MaterialStateProperty.all<Size>(Size(width, 48.0)),
+        minimumSize: MaterialStateProperty.all<Size>(Size(width, _defaultButtonHeight)),
         foregroundColor: MaterialStateProperty.all<Color>(context.onPrimary),
       ),
       child: SizedBox(
@@ -368,7 +460,7 @@ class _ShrinkTab extends StatelessWidget {
     required this.label,
   })  : isActive = isActive ?? false,
         margin = margin ?? const EdgeInsets.symmetric(horizontal: 8),
-        height = height ?? 48.0;
+        height = height ?? _defaultButtonHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -424,7 +516,7 @@ class _ShrinkElevatedButton extends StatelessWidget {
     this.borderRadius,
     required this.isProcessing,
     required this.child,
-  }) : height = height ?? 48.0;
+  }) : height = height ?? _defaultButtonHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -463,7 +555,7 @@ class _ShrinkOutlineButton extends StatelessWidget {
     this.isProcessing = false,
     this.borderColor,
     required this.child,
-  }) : height = height ?? 48.0;
+  }) : height = height ?? _defaultButtonHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -503,7 +595,7 @@ class _AppElevatedButton extends StatelessWidget {
     this.background,
     this.isProcessing = false,
     required this.child,
-  })  : height = height ?? 48.0,
+  })  : height = height ?? _defaultButtonHeight,
         count = count ?? -1;
 
   @override
